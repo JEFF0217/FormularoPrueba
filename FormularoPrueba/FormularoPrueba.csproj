@@ -141,30 +141,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModeloDB\FormularioModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FormularioModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModeloDB\FormularioModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FormularioModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModeloDB\FormularioModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FormularioModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="ModeloDB\tb_ciudad.cs">
-      <DependentUpon>FormularioModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModeloDB\tb_TipoDoc.cs">
-      <DependentUpon>FormularioModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModeloDB\tb_usuario.cs">
-      <DependentUpon>FormularioModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,25 +153,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="ModeloDB\FormularioModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>FormularioModel.Context.cs</LastGenOutput>
-      <DependentUpon>FormularioModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="ModeloDB\FormularioModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FormularioModel.edmx</DependentUpon>
-      <LastGenOutput>FormularioModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="ModeloDB\FormularioModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FormularioModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="ModeloDB\FormularioModel.edmx.diagram">
-      <DependentUpon>FormularioModel.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -257,6 +216,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AccesoDeDatos\AccesoDeDatos.csproj">
+      <Project>{05ffe0b3-7cd0-4236-a84e-a4d8f9a6c81d}</Project>
+      <Name>AccesoDeDatos</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

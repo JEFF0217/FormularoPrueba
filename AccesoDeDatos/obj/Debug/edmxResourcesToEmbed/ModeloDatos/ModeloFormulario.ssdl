@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FormularioDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tb_ciudad">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_TipoDoc">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="primer_nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="otros_nombres" Type="nvarchar" MaxLength="100" />
+    <Property Name="primer_apellido" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="segundo_apellido" Type="nvarchar" MaxLength="100" />
+    <Property Name="correo" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="celular" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="id_ciudad" Type="int" Nullable="false" />
+    <Property Name="id_TipoDoc" Type="int" Nullable="false" />
+    <Property Name="documento" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="fecha_nacimiento" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__tb_usuari__id_ci__15502E78">
+    <End Role="tb_ciudad" Type="Self.tb_ciudad" Multiplicity="1" />
+    <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_ciudad">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tb_usuario">
+        <PropertyRef Name="id_ciudad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_usuari__id_Ti__164452B1">
+    <End Role="tb_TipoDoc" Type="Self.tb_TipoDoc" Multiplicity="1" />
+    <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_TipoDoc">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tb_usuario">
+        <PropertyRef Name="id_TipoDoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FormularioDBModelStoreContainer">
+    <EntitySet Name="tb_ciudad" EntityType="Self.tb_ciudad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_TipoDoc" EntityType="Self.tb_TipoDoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_usuario" EntityType="Self.tb_usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tb_usuari__id_ci__15502E78" Association="Self.FK__tb_usuari__id_ci__15502E78">
+      <End Role="tb_ciudad" EntitySet="tb_ciudad" />
+      <End Role="tb_usuario" EntitySet="tb_usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_usuari__id_Ti__164452B1" Association="Self.FK__tb_usuari__id_Ti__164452B1">
+      <End Role="tb_TipoDoc" EntitySet="tb_TipoDoc" />
+      <End Role="tb_usuario" EntitySet="tb_usuario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

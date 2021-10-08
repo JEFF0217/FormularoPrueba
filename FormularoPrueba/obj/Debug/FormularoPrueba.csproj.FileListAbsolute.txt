@@ -92,3 +92,6 @@ C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\bin\PagedList.Mvc.dl
 C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\bin\PagedList.xml
 C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\bin\PagedList.Mvc.xml
 C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\obj\Debug\FormularoPrueba.csproj.AssemblyReference.cache
+C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\bin\AccesoDeDatos.dll
+C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\bin\AccesoDeDatos.pdb
+C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\bin\AccesoDeDatos.dll.config

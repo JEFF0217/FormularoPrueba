@@ -20,7 +20,15 @@ namespace AccesoDeDatos.Implementacion
             var lista = new List<tb_ciudad>();
             using (FormularioDBEntities bd = new FormularioDBEntities())
             {
-                lista = bd.tb_ciudad.Where(x => x.nombre.ToUpper().Contains(filtro.ToUpper())).ToList();
+                if (String.IsNullOrWhiteSpace(filtro))
+                {
+                    lista = bd.tb_ciudad.ToList();
+                }
+                else
+                {
+                    lista = bd.tb_ciudad.Where(x => x.nombre.ToUpper().Contains(filtro.ToUpper())).ToList();
+                }
+         
             }
             return lista; 
         }

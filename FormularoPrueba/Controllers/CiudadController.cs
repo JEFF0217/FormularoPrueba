@@ -6,21 +6,23 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AccesoDeDatos.Implementacion;
+using AccesoDeDatos.ModeloDatos;
 using PagedList;
-using FormularoPrueba.ModeloDB;
+
 
 namespace FormularoPrueba.Controllers
 {
     public class CiudadController : Controller
     {
-        private FormularioDBEntities db = new FormularioDBEntities();
+        private ImpCiudadDatos acceso = new ImpCiudadDatos();
 
         // GET: Ciudad
-        public ActionResult Index(int? page)
+        public ActionResult Index(string filtro= "")
         {
             int pageIndex = 5;
             int pageSize = 1;
-            return View(db.tb_ciudad.ToList());
+            return View(acceso.ListarRegistros(filtro).ToList());
         }
 
         // GET: Ciudad/Details/5
@@ -30,7 +32,7 @@ namespace FormularoPrueba.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_ciudad tb_ciudad = db.tb_ciudad.Find(id);
+            tb_ciudad tb_ciudad = acceso.BuscarRegistro(id.Value);
             if (tb_ciudad == null)
             {
                 return HttpNotFound();
@@ -53,8 +55,8 @@ namespace FormularoPrueba.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tb_ciudad.Add(tb_ciudad);
-                db.SaveChanges();
+                acceso.GuardarRegistro(tb_ciudad);
+                
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +70,7 @@ namespace FormularoPrueba.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_ciudad tb_ciudad = db.tb_ciudad.Find(id);
+            tb_ciudad tb_ciudad = acceso.BuscarRegistro(id.Value);
             if (tb_ciudad == null)
             {
                 return HttpNotFound();
@@ -85,8 +87,7 @@ namespace FormularoPrueba.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_ciudad).State = EntityState.Modified;
-                db.SaveChanges();
+                acceso.EditarRegistro(tb_ciudad);
                 return RedirectToAction("Index");
             }
             return View(tb_ciudad);
@@ -99,7 +100,7 @@ namespace FormularoPrueba.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_ciudad tb_ciudad = db.tb_ciudad.Find(id);
+            tb_ciudad tb_ciudad = acceso.BuscarRegistro(id.Value);
             if (tb_ciudad == null)
             {
                 return HttpNotFound();
@@ -112,19 +113,11 @@ namespace FormularoPrueba.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_ciudad tb_ciudad = db.tb_ciudad.Find(id);
-            db.tb_ciudad.Remove(tb_ciudad);
-            db.SaveChanges();
+          
+            acceso.ELiminarRegistro(id);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
     }
 }
