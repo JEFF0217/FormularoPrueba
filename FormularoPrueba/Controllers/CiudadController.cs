@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using FormularoPrueba.ModeloDB;
 
 namespace FormularoPrueba.Controllers
@@ -15,8 +16,10 @@ namespace FormularoPrueba.Controllers
         private FormularioDBEntities db = new FormularioDBEntities();
 
         // GET: Ciudad
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
+            int pageIndex = 5;
+            int pageSize = 1;
             return View(db.tb_ciudad.ToList());
         }
 

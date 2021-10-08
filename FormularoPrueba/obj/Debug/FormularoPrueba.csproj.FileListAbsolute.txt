@@ -87,3 +87,8 @@ C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\obj\Debug\FormularoP
 C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\obj\Debug\FormularoPrueba.csproj.CopyComplete
 C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\obj\Debug\FormularoPrueba.dll
 C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\obj\Debug\FormularoPrueba.pdb
+C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\bin\PagedList.dll
+C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\bin\PagedList.Mvc.dll
+C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\bin\PagedList.xml
+C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\bin\PagedList.Mvc.xml
+C:\Users\jeffe\source\repos\FormularoPrueba\FormularoPrueba\obj\Debug\FormularoPrueba.csproj.AssemblyReference.cache
