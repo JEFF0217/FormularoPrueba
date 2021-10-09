@@ -122,7 +122,7 @@ namespace AccesoDeDatos.Implementacion
                 {
                     tb_ciudad registro = bd.tb_ciudad.Find(id);
                     //verificacion de la existencia de un registro con un mismo id
-                    if (registro == null)
+                    if (registro == null || registro.tb_usuario.Count() > 0)
                     {
                         return false;
                     }

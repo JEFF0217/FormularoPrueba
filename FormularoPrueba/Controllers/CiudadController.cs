@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using AccesoDeDatos.Implementacion;
 using AccesoDeDatos.ModeloDatos;
+using FormularoPrueba.Helpers;
+using FormularoPrueba.Mapeadores.parametros;
+using FormularoPrueba.Models;
 using PagedList;
 
 
@@ -20,9 +23,10 @@ namespace FormularoPrueba.Controllers
         // GET: Ciudad
         public ActionResult Index(string filtro= "")
         {
-            int pageIndex = 5;
-            int pageSize = 1;
-            return View(acceso.ListarRegistros(filtro).ToList());
+            IEnumerable<tb_ciudad> listaDatos = acceso.ListarRegistros(String.Empty);
+            MapeadorCiudadGui mapper = new MapeadorCiudadGui();
+            IEnumerable<ModeloCiudadGUI> listaGUI = mapper.MapearTipo1Tipo2(listaDatos);
+            return View(listaGUI);
         }
 
         // GET: Ciudad/Details/5
@@ -37,7 +41,11 @@ namespace FormularoPrueba.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tb_ciudad);
+
+
+            MapeadorCiudadGui mapper = new MapeadorCiudadGui();
+            ModeloCiudadGUI modelo = mapper.MapearTipo1Tipo2(tb_ciudad);
+            return View(modelo);
         }
 
         // GET: Ciudad/Create
@@ -51,16 +59,20 @@ namespace FormularoPrueba.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre")] tb_ciudad tb_ciudad)
+        public ActionResult Create([Bind(Include = "Id,Nombre")] ModeloCiudadGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                acceso.GuardarRegistro(tb_ciudad);
-                
-                return RedirectToAction("Index");
+                MapeadorCiudadGui mapper = new MapeadorCiudadGui();
+                tb_ciudad tb_Ciudad = mapper.MapearTipo2Tipo1(modelo);
+                acceso.GuardarRegistro(tb_Ciudad);
+                return RedirectToAction("index");
             }
 
-            return View(tb_ciudad);
+            
+            
+
+            return View(modelo);
         }
 
         // GET: Ciudad/Edit/5
@@ -75,7 +87,11 @@ namespace FormularoPrueba.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tb_ciudad);
+
+
+            MapeadorCiudadGui mapper = new MapeadorCiudadGui();
+            ModeloCiudadGUI modelo = mapper.MapearTipo1Tipo2(tb_ciudad);
+            return View(modelo);
         }
 
         // POST: Ciudad/Edit/5
@@ -83,14 +99,20 @@ namespace FormularoPrueba.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre")] tb_ciudad tb_ciudad)
+        public ActionResult Edit([Bind(Include = "Id,Nombre")] ModeloCiudadGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                acceso.EditarRegistro(tb_ciudad);
-                return RedirectToAction("Index");
+                MapeadorCiudadGui mapper = new MapeadorCiudadGui();
+                tb_ciudad tb_Ciudad = mapper.MapearTipo2Tipo1(modelo);
+                acceso.GuardarRegistro(tb_Ciudad);
+                return RedirectToAction("index");
+
             }
-            return View(tb_ciudad);
+
+
+           
+            return View(modelo);
         }
 
         // GET: Ciudad/Delete/5
@@ -105,7 +127,10 @@ namespace FormularoPrueba.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tb_ciudad);
+
+            MapeadorCiudadGui mapper = new MapeadorCiudadGui();
+            ModeloCiudadGUI modelo = mapper.MapearTipo1Tipo2(tb_ciudad);
+            return View(modelo);
         }
 
         // POST: Ciudad/Delete/5
@@ -114,8 +139,25 @@ namespace FormularoPrueba.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
           
-            acceso.ELiminarRegistro(id);
-            return RedirectToAction("Index");
+            bool respuesta = acceso.ELiminarRegistro(id);
+            if (respuesta)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                tb_ciudad tb_ciudad = acceso.BuscarRegistro(id);
+                if (tb_ciudad == null)
+                {
+                    return HttpNotFound();
+                }
+
+                MapeadorCiudadGui mapper = new MapeadorCiudadGui();
+                ViewBag.mensaje = Mensajes.mensajeErrorEliminar;
+
+                ModeloCiudadGUI modelo = mapper.MapearTipo1Tipo2(tb_ciudad);
+                return View(modelo);
+            }
         }
 
 

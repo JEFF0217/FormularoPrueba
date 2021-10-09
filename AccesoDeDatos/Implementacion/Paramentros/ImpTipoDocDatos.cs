@@ -20,7 +20,15 @@ namespace AccesoDeDatos.Implementacion
             var lista = new List<tb_TipoDoc>();
             using (FormularioDBEntities bd = new FormularioDBEntities())
             {
-                lista = bd.tb_TipoDoc.Where(x => x.nombre.ToUpper().Contains(filtro.ToUpper())).ToList();
+                if (String.IsNullOrWhiteSpace(filtro))
+                {
+                    lista = bd.tb_TipoDoc.ToList();
+                }
+                else
+                {
+                    lista = bd.tb_TipoDoc.Where(x => x.nombre.ToUpper().Contains(filtro.ToUpper())).ToList();
+                }
+               
             }
             return lista; 
         }
@@ -114,7 +122,7 @@ namespace AccesoDeDatos.Implementacion
                 {
                     tb_TipoDoc registro = bd.tb_TipoDoc.Find(id);
                     //verificacion de la existencia de un registro con un mismo id
-                    if (registro == null)
+                    if (registro == null || registro.tb_usuario.Count() > 0)
                     {
                         return false;
                     }

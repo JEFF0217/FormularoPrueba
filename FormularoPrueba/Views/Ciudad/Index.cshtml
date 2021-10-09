@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<AccesoDeDatos.ModeloDatos.tb_ciudad>
+@model IEnumerable<FormularoPrueba.Models.ModeloCiudadGUI>
 
 @{
     ViewBag.Title = "Index";
@@ -13,7 +13,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayNameFor(model => model.Nombre)
         </th>
         <th></th>
     </tr>
@@ -22,12 +22,12 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.nombre)
+                @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-primary" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-warning" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }

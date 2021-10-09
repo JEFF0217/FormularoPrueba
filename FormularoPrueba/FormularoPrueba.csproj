@@ -141,6 +141,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Mensajes.cs" />
+    <Compile Include="Mapeadores\MapeadorBaseGUI.cs" />
+    <Compile Include="Mapeadores\parametros\MapeadorCiudadGui.cs" />
+    <Compile Include="Mapeadores\parametros\MapeadorTipoDocGui.cs" />
+    <Compile Include="Models\ModeloCiudadGUI.cs" />
+    <Compile Include="Models\ModeloTipoDocGUI.cs" />
+    <Compile Include="Models\ModeloUsuarioGUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -199,7 +206,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Parameters\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

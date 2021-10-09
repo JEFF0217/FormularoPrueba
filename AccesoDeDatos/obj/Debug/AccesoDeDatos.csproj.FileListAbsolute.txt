@@ -5,8 +5,8 @@ C:\Users\jeffe\source\repos\FormularoPrueba\AccesoDeDatos\bin\Debug\EntityFramew
 C:\Users\jeffe\source\repos\FormularoPrueba\AccesoDeDatos\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\jeffe\source\repos\FormularoPrueba\AccesoDeDatos\bin\Debug\EntityFramework.xml
 C:\Users\jeffe\source\repos\FormularoPrueba\AccesoDeDatos\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\jeffe\source\repos\FormularoPrueba\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.AssemblyReference.cache
 C:\Users\jeffe\source\repos\FormularoPrueba\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.CoreCompileInputs.cache
 C:\Users\jeffe\source\repos\FormularoPrueba\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.CopyComplete
 C:\Users\jeffe\source\repos\FormularoPrueba\AccesoDeDatos\obj\Debug\AccesoDeDatos.dll
 C:\Users\jeffe\source\repos\FormularoPrueba\AccesoDeDatos\obj\Debug\AccesoDeDatos.pdb
+C:\Users\jeffe\source\repos\FormularoPrueba\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.AssemblyReference.cache

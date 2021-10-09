@@ -1,4 +1,8 @@
-﻿using AccesoDeDatos.ModeloDatos;
+﻿using AccesoDeDatos.Implementacion;
+using AccesoDeDatos.ModeloDatos;
+using FormularoPrueba.Helpers;
+using FormularoPrueba.Mapeadores.parametros;
+using FormularoPrueba.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,12 +17,15 @@ namespace FormularoPrueba.Controllers
 {
     public class TipoDocController : Controller
     {
-        private FormularioDBEntities db = new FormularioDBEntities();
+        private ImpTipoDocDatos acceso = new ImpTipoDocDatos();
 
         // GET: TipoDoc
-        public ActionResult Index()
+        public ActionResult Index(string filtro = "")
         {
-            return View(db.tb_TipoDoc.ToList());
+            IEnumerable<tb_TipoDoc> listaDatos = acceso.ListarRegistros(String.Empty);
+            MapeadorTipoDocGui mapper = new MapeadorTipoDocGui();
+            IEnumerable<ModeloTipoDocGUI> listaGUI = mapper.MapearTipo1Tipo2(listaDatos);
+            return View(listaGUI);
         }
 
         // GET: TipoDoc/Details/5
@@ -28,12 +35,14 @@ namespace FormularoPrueba.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_TipoDoc tb_TipoDoc = db.tb_TipoDoc.Find(id);
+            tb_TipoDoc tb_TipoDoc = acceso.BuscarRegistro(id.Value);
             if (tb_TipoDoc == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_TipoDoc);
+            MapeadorTipoDocGui mapper = new MapeadorTipoDocGui();
+            ModeloTipoDocGUI modelo = mapper.MapearTipo1Tipo2(tb_TipoDoc);
+            return View(modelo);
         }
 
         // GET: TipoDoc/Create
@@ -47,16 +56,17 @@ namespace FormularoPrueba.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre")] tb_TipoDoc tb_TipoDoc)
+        public ActionResult Create([Bind(Include = "Id,Nombre")] ModeloTipoDocGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                db.tb_TipoDoc.Add(tb_TipoDoc);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                MapeadorTipoDocGui mapper = new MapeadorTipoDocGui();
+                tb_TipoDoc tb_tipoDoc = mapper.MapearTipo2Tipo1(modelo);
+                acceso.GuardarRegistro(tb_tipoDoc);
+                return RedirectToAction("index");
             }
 
-            return View(tb_TipoDoc);
+            return View(modelo);
         }
 
         // GET: TipoDoc/Edit/5
@@ -66,12 +76,17 @@ namespace FormularoPrueba.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_TipoDoc tb_TipoDoc = db.tb_TipoDoc.Find(id);
+            tb_TipoDoc tb_TipoDoc = acceso.BuscarRegistro(id.Value);
             if (tb_TipoDoc == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_TipoDoc);
+
+
+            MapeadorTipoDocGui mapper = new MapeadorTipoDocGui();
+            ModeloTipoDocGUI modelo = mapper.MapearTipo1Tipo2(tb_TipoDoc);
+            return View(modelo);
+          
         }
 
         // POST: TipoDoc/Edit/5
@@ -79,15 +94,19 @@ namespace FormularoPrueba.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre")] tb_TipoDoc tb_TipoDoc)
+        public ActionResult Edit([Bind(Include = "Id,Nombre")] ModeloTipoDocGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_TipoDoc).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                MapeadorTipoDocGui mapper = new MapeadorTipoDocGui();
+                tb_TipoDoc tb_tipoDoc = mapper.MapearTipo2Tipo1(modelo);
+                acceso.GuardarRegistro(tb_tipoDoc);
+                return RedirectToAction("index");
             }
-            return View(tb_TipoDoc);
+
+
+
+            return View(modelo);
         }
 
         // GET: TipoDoc/Delete/5
@@ -97,12 +116,15 @@ namespace FormularoPrueba.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_TipoDoc tb_TipoDoc = db.tb_TipoDoc.Find(id);
+            tb_TipoDoc tb_TipoDoc = acceso.BuscarRegistro(id.Value);
             if (tb_TipoDoc == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_TipoDoc);
+
+            MapeadorTipoDocGui mapper = new MapeadorTipoDocGui();
+            ModeloTipoDocGUI modelo = mapper.MapearTipo1Tipo2(tb_TipoDoc);
+            return View(modelo);
         }
 
         // POST: TipoDoc/Delete/5
@@ -110,19 +132,27 @@ namespace FormularoPrueba.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_TipoDoc tb_TipoDoc = db.tb_TipoDoc.Find(id);
-            db.tb_TipoDoc.Remove(tb_TipoDoc);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            bool respuesta = acceso.ELiminarRegistro(id);
+            if (respuesta)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                tb_TipoDoc tb_tipoDoc = acceso.BuscarRegistro(id);
+                if (tb_tipoDoc == null)
+                {
+                    return HttpNotFound();
+                }
+
+                MapeadorTipoDocGui mapper = new MapeadorTipoDocGui();
+                ViewBag.mensaje = Mensajes.mensajeErrorEliminar;
+
+                ModeloTipoDocGUI modelo = mapper.MapearTipo1Tipo2(tb_tipoDoc);
+                return View(modelo);
+            }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }
