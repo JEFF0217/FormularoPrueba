@@ -21,12 +21,17 @@ namespace FormularoPrueba.Controllers
         private ImpCiudadDatos acceso = new ImpCiudadDatos();
 
         // GET: Ciudad
-        public ActionResult Index(string filtro= "")
+        public ActionResult Index(int? page,string filtro= "")
         {
-            IEnumerable<tb_ciudad> listaDatos = acceso.ListarRegistros(String.Empty);
+            int pageIndex = 1;
+            int pageSize = 3;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<ModeloCiudadGUI> listpage = null;
+
+            IEnumerable<tb_ciudad> listaDatos = acceso.ListarRegistros(filtro);
             MapeadorCiudadGui mapper = new MapeadorCiudadGui();
-            IEnumerable<ModeloCiudadGUI> listaGUI = mapper.MapearTipo1Tipo2(listaDatos);
-            return View(listaGUI);
+            listpage = mapper.MapearTipo1Tipo2(listaDatos).ToPagedList(pageIndex, pageSize);
+            return View(listpage);
         }
 
         // GET: Ciudad/Details/5
